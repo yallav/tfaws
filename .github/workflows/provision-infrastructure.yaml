@@ -6,7 +6,7 @@ on:
             tf_path:
                 description: 'TF files path'
                 required: false
-                default: 'tfaws/terraform'
+                default: 'terraform'
 
 jobs:
     tf_fmt:
