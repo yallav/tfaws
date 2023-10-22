@@ -1,0 +1,35 @@
+name: Provision
+
+on:
+    workflow_dispatch:
+        inputs:
+            tf_path:
+                description: 'TF files path'
+                required: false
+                default: 'tfaws/terraform'
+
+jobs:
+    tf_fmt:
+        name: Create key pair
+        runs-on: ubuntu-latest
+        steps:
+            -   name: checkout code
+                uses: actions/checkout@v3
+
+            -   name: Configure AWS Credentials
+                uses: aws-actions/configure-aws-credentials@v1
+                with:
+                    aws-access-key-id: ${{secrets.TF_AWS_KEY}}
+                    aws-secret-access-key: ${{secrets.TF_AWS_SECRET}}
+                    aws-region: us-east-1
+
+            -   name: Setup Terraform
+                uses: hashicorp/setup-terraform@v2
+                with:
+                    terraform_wrapper: false
+
+            -   name: Terraform fmt
+                id: fmt
+                run: terraform fmt -check
+
+
