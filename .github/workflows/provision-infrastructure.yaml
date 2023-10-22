@@ -31,5 +31,6 @@ jobs:
             -   name: Terraform fmt
                 id: fmt
                 run: terraform fmt -check
+                working-directory: ${{github.event.inputs.tf_path}}
 
 

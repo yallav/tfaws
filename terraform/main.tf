@@ -2,15 +2,7 @@ variable "region" {
     default = "us-east-2"
 }
 
-terraform {
-    required_providers {
-
-    }
-}
-
-provider "aws" {
-  
-}
+provider "aws" { }
 
 resource "aws_instance" "web" {
   ami                    = "ami-0df435f331839b2d6"
