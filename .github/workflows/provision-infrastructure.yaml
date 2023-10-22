@@ -27,6 +27,9 @@ jobs:
                 uses: hashicorp/setup-terraform@v2
                 with:
                     terraform_wrapper: false
+            
+            -   name: Working directory
+                run: echo `pwd`
 
             -   name: Terraform fmt
                 id: fmt
