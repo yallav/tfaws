@@ -33,4 +33,8 @@ jobs:
                 run: terraform fmt -check
                 working-directory: ${{github.event.inputs.tf_path}}
 
+            -   name: Terraform init
+                run: terraform init
+                working-directory: ${{github.event.inputs.tf_path}}
+
 
