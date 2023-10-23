@@ -1,4 +1,4 @@
-name: Provision and Configure Infrastrucutre
+name: Provision and Configure Infrastrucutre Action
 
 on:
     workflow_dispatch:
@@ -10,7 +10,7 @@ on:
 
 jobs:
     tf_fmt:
-        name: Create key pair
+        name: Provision Infra Job
         runs-on: ubuntu-latest
         steps:
             -   name: checkout code
