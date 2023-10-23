@@ -1,5 +1,5 @@
-variable "region" {
-  default = "us-east-2"
+variable "instancename" {
+  default = "test"
 }
 
 provider "aws" {}
