@@ -45,7 +45,7 @@ jobs:
                 working-directory:  ${{github.event.inputs.tf_path}}
 
             -   name: Terraform plan
-                run: terraform plan -var 'instancename=Myfirst Inastane'
+                run: terraform plan -var 'instancename=Myfirst Inastance'
                 working-directory:  ${{github.event.inputs.tf_path}}
 
 
