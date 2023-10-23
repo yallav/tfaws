@@ -1,4 +1,4 @@
-name: Provision
+name: Provision and Configure Infrastrucutre
 
 on:
     workflow_dispatch:
@@ -45,7 +45,7 @@ jobs:
                 working-directory:  ${{github.event.inputs.tf_path}}
 
             -   name: Terraform plan
-                run: terraform plan
+                run: terraform plan -var 'instancename=Myfirst Inastane'
                 working-directory:  ${{github.event.inputs.tf_path}}
 
 
