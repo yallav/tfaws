@@ -1,4 +1,4 @@
 [servers]
-%{for server in servers ~}
-${server}
+%{for web_server in web_servers ~}
+${web_server}
 %{endfor ~}
