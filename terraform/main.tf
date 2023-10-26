@@ -1,3 +1,16 @@
+terraform {
+  required_providers {
+    ansible = {
+      version = "~> 1.1.0"
+      source  = "ansible/ansible"
+    }
+    aws = {
+      source  = "hashicorp/aws"
+      version = "~> 4.0"
+    }
+  }
+}
+
 provider "aws" { 
   
 }
@@ -8,8 +21,8 @@ variable "ssh_key" {
   description = "Public key value to attach to EC2 instances"
 }
 
-resource "aws_key_pair" "deployer-ssh-key" {
-  key_name = "deployer-key"
+resource "aws_key_pair" "deployer_ssh_key" {
+  key_name = "deployer_key"
   public_key = var.ssh_key
 }
 
@@ -26,14 +39,14 @@ variable "instance_count" {
 
 resource "aws_instance" "web_server" {
   count         = var.instance_count
-  ami           = "ami-0df435f331839b2d6"
+  ami           = "ami-0fc5d935ebf8bc3bc"
   instance_type = "t2.micro"
 
   tags = {
     Name = "${var.instance_name}-${count.index}"
   }
 
-  key_name = "deployer-ssh-key"
+  key_name = aws_key_pair.deployer_ssh_key.key_name
 }
 
 output "instance_id" {
@@ -53,4 +66,15 @@ resource "local_file" "inventory" {
     }
   )
   filename = "../ansible/inventory"
+}
+
+# Add created ec2 instance to ansible inventory
+resource "ansible_host" "web_server" {
+  name   = aws_instance.web_server.public_dns
+  groups = ["nginx"]
+  variables = {
+    ansible_user                 = "ubuntu",
+    ansible_ssh_private_key_file = "~/.ssh/id_rsa",
+    ansible_python_interpreter   = "/usr/bin/python3",
+  }
 }
