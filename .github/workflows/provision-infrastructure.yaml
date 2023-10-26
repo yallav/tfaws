@@ -45,7 +45,7 @@ jobs:
                 working-directory:  ${{github.event.inputs.tf_path}}
 
             -   name: Terraform plan
-                run: terraform plan -var 'instance_name=Myfirst Inastance' 'ssh_key=${{secrets.TF_PUB_KEY}}'
+                run: terraform plan -var 'instance_name=Myfirst Inastance' -var 'ssh_key=${{secrets.TF_PUB_KEY}}'
                 working-directory:  ${{github.event.inputs.tf_path}}
 
 
