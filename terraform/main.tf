@@ -70,7 +70,7 @@ resource "local_file" "inventory" {
 
 # Add created ec2 instance to ansible inventory
 resource "ansible_host" "web_server" {
-  name   = aws_instance.web_server.public_dns
+  name   = aws_instance.web_server.*.public_dns
   groups = ["nginx"]
   variables = {
     ansible_user                 = "ubuntu",
