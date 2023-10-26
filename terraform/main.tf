@@ -43,7 +43,7 @@ resource "aws_instance" "web_server" {
   instance_type = "t2.micro"
 
   tags = {
-    Name = "${var.instance_name}-${count.index}"
+    Name = "${var.instance_name}"
   }
 
   key_name = aws_key_pair.deployer_ssh_key.key_name
