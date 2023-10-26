@@ -1,4 +1,17 @@
-provider "aws" { }
+provider "aws" { 
+  
+}
+
+variable "ssh_key" {
+  type = string
+  default = "test"
+  description = "Public key value to attach to EC2 instances"
+}
+
+resource "aws_key_pair" "deployer-ssh-key" {
+  key_name = "deployer-key"
+  public_key = var.ssh_key
+}
 
 variable "instance_name" {
   type = string
@@ -12,12 +25,15 @@ variable "instance_count" {
 }
 
 resource "aws_instance" "web_server" {
-  count = var.instance_count
+  count         = var.instance_count
   ami           = "ami-0df435f331839b2d6"
   instance_type = "t2.micro"
+
   tags = {
     Name = "${var.instance_name}-${count.index}"
   }
+
+  key_name = "deployer-ssh-key"
 }
 
 output "instance_id" {
@@ -36,5 +52,5 @@ resource "local_file" "inventory" {
       web_servers = aws_instance.web_server.*.public_ip
     }
   )
-  filename = "../ansible/hosts.ini"
+  filename = "../ansible/inventory"
 }
